@@ -35,7 +35,7 @@ line-height: 22px;
   .banner {
   position: relative;
   height: 260px;
-  background-image: url(../static/antares.jpeg);
+  background-image: url(../static/img/antares.jpeg);
   background-size: cover;
   display: flex;
   justify-content: center;
