@@ -1,5 +1,4 @@
 from django.db import models
-from django import forms
 
 TIPO_PREGUNTAS = (
   ('Texto', 'Texto'),
@@ -35,22 +34,17 @@ class Pregunta(models.Model):
   def __str__(self):
     return self.nombre
 
+
 class User(models.Model):
   nombre = models.CharField(max_length=100)
-  edad = models.IntegerField()
+  edad = models.IntegerField(default=None)
   email = models.EmailField(default='')
   respuestas = models.ManyToManyField(Pregunta)
-  estadio = models.CharField(max_length=100)
+  estadio = models.CharField(max_length=100, default='')
   
   def __str__(self):
     return self.nombre
   
-class UserForm(forms.ModelForm):
-  class Meta:
-    user = User
-    fields = '__all__'
-
-
 class Respuesta(models.Model):
   pregunta = models.ForeignKey(Pregunta, on_delete=models.PROTECT)
   user = models.ForeignKey(User, on_delete=models.PROTECT)
@@ -59,5 +53,4 @@ class Respuesta(models.Model):
   
   def __str__(self):
     return self.respuesta
-  
   

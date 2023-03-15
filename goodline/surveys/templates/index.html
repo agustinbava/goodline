@@ -4,17 +4,19 @@
 {% block content %}
 <body>
   <div class="testbox">
-    <form action="/">
+    <form action="" method="post">
       <div class="banner">
         <h1>Antares feedback</h1>
-        {% comment %} <img src="../static/img/Logo-antares-2048x1106.png" alt="" title="Logo-antares-2"> {% endcomment %}
       </div>
+      <div class="item">
+      {% csrf_token %}
+      {{ userForm }}
       {% for pregunta in preguntas %}
         {% if pregunta.tipo_pregunta == 'Texto'%}
           <div class="item">
             <p>{{ pregunta.nombre }}</p>
             <div class="name-item">
-              <input type="text" name="nombre" />
+              {{ form }}
             </div>
           </div>
         {% elif pregunta.tipo_pregunta == 'Email'%}
@@ -23,41 +25,47 @@
             <input type="email" name="email"/>
           </div>
 
-      {% comment %} <div class="item">
-        <p>When are you planning to visit?</p>
-        <input type="date" name="bdate" required/>
-        <i class="fas fa-calendar-alt"></i>
-      </div> {% endcomment %}
+        {% elif pregunta.tipo_pregunta == 'Numero'%}
+          <div class="item">
+            <p>{{ pregunta.nombre }}</p>
+            <input type="text" name="number"/>
+          </div>
+        {% else %}
+          <div class="item">
+            <p>{{ pregunta.nombre }}</p>
+            <input type="text" name="number"/>
+          </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+      <div class="btn-block">
+        <button type="submit" id="button">Enviar respuestas</button>
+      </div>
+    </form>
+
+  </div>
+</body>
+{% endblock %}
+
+      {% comment %} {% for pregunta in preguntas %}
+        {% if pregunta.tipo_pregunta == 'Texto'%}
+          <div class="item">
+            <p>{{ pregunta.nombre }}</p>
+            <div class="name-item">
+              {{ form }}
+            </div>
+          </div>
+        {% elif pregunta.tipo_pregunta == 'Email'%}
+          <div class="item">
+            <p>{{ pregunta.nombre }}</p>
+            <input type="email" name="email"/>
+          </div>
+
         {% elif pregunta.tipo_pregunta == 'Numero'%}
           <div class="item">
             <p>{{ pregunta.nombre }}</p>
             <input type="text" name="number"/>
           </div>
         {% elif pregunta.tipo_pregunta == 'Unico'%}
-          <div class="question">
-            <p>{{ pregunta.nombre }}</p>
-            <div class="question-answer">
-              <div>
-                <input type="checkbox" value="none" id="checkbox_1" name="contact1"/>
-                <label for="checkbox_1" class="checkbox"><span>Phone</span></label>
-              </div>
-              <div>
-                <input type="checkbox" value="none" id="checkbox_2" name="contact2"/>
-                <label for="checkbox_2" class="checkbox"><span>Email</span></label>
-              </div>
-              <div>
-                <input type="checkbox" value="none" id="checkbox_3" name="contact3"/>
-                <label for="checkbox_3" class="checkbox"><span>Either</span></label>
-              </div>
-            </div>
-          </div>
-      </div>
-      <div class="btn-block">
-        <button type="submit" href="/">Enviar respuestas</button>
-      </div>
-      {% endif %}
-      {% endfor %}
-    </form>
-  </div>
-</body>
-{% endblock %}
+        {% endif %}
+      {% endfor %} {% endcomment %}
