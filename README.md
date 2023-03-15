@@ -1,0 +1,1 @@
+This is a WIP web page in Django that will be working as a survey for several restaurants.
