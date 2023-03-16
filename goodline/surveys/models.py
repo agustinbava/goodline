@@ -39,7 +39,7 @@ class User(models.Model):
   nombre = models.CharField(max_length=100)
   edad = models.IntegerField(default=None)
   email = models.EmailField(default='')
-  respuestas = models.ManyToManyField(Pregunta)
+  respuesta = models.ManyToManyField(Pregunta)
   estadio = models.CharField(max_length=100, default='')
   
   def __str__(self):
@@ -47,7 +47,7 @@ class User(models.Model):
   
 class Respuesta(models.Model):
   pregunta = models.ForeignKey(Pregunta, on_delete=models.PROTECT)
-  user = models.ForeignKey(User, on_delete=models.PROTECT)
+  user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='respuestas')
   respuesta = models.CharField(max_length=2000)
   fecha_respuesta = models.DateTimeField(auto_now=False, auto_now_add=False)
   

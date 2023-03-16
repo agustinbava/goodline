@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from .models import Pregunta 
 from .forms import RespuestasForm, UserForm
+from django.http import HttpResponseRedirect, HttpResponse
 
 
 def home(request):
@@ -19,14 +20,16 @@ def home(request):
     userForm = UserForm(request.POST)
     respuestasForm = RespuestasForm(request.POST)
     
-    if userForm.is_valid():
+    if userForm.is_valid() and respuestasForm.is_valid():
       userForm.save()
-      
-    if respuestasForm.is_valid():
       respuestasForm.save()
+      return HttpResponseRedirect('/thanks/')
       
   return render(request, 'index.html', context)
   
 
 def contactus(request):
   return render(request, 'contactus.html', {})
+
+def thanks(request):
+  return render(request, 'thanks.html', {})
